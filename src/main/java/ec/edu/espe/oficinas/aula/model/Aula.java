@@ -1,88 +1,61 @@
 package ec.edu.espe.oficinas.aula.model;
 
-
-import ec.edu.oficinas.bloque.models.EdificioBloque;
-import ec.edu.oficinas.edificio.models.Edificio;
-import ec.edu.oficinas.tipoaula.models.TipoAula;
+import ec.edu.espe.oficinas.edificio.model.EdificioBloque;
+import ec.edu.espe.oficinas.edificio.model.Edificio;
 import jakarta.validation.constraints.NotNull;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "OFI_AULA")
 public class Aula implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
     @EmbeddedId
-    private AulaId id;
-
-    // Relación MANY-TO-ONE con Edificio (usando parte de la PK compuesta)
+    private AulaPK id;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
     private Edificio edificio;
-
-    // Relación MANY-TO-ONE con EdificioBloque
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COD_EDIFICIO_BLOQUE", nullable = false, insertable = false, updatable = false)
     private EdificioBloque edificioBloque;
-
-    // Relación MANY-TO-ONE con TipoAula
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COD_TIPO_AULA", nullable = false, insertable = false, updatable = false)
     private TipoAula tipoAula;
-
     @NotNull
     @Column(name = "COD_ALTERNO", length = 10, nullable = false)
     private String codAlterno;
-
     @NotNull
     @Column(name = "CAPACIDAD", nullable = false)
     private Integer capacidad;
-
     @NotNull
     @Column(name = "PISO", nullable = false)
     private Integer piso;
-
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_CREACION", nullable = false)
     private Date fechaCreacion;
-
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "FECHA_ULT_ACTUALIZACION", nullable = false)
     @NotNull
-    private Date fechaUltActualizacion;
+    @Column(name = "FECHA_ULT_ACTUALIZACION", nullable = false)
+    private LocalDate fechaUltActualizacion;
 
-    // Constructor vacío
     public Aula() {
     }
 
-    // Constructor completo
-    public Aula(AulaId id, Edificio edificio, EdificioBloque edificioBloque, TipoAula tipoAula,
-                String codAlterno, Integer capacidad, Integer piso, Date fechaCreacion, Date fechaUltActualizacion) {
+    public Aula(AulaPK id) {
         this.id = id;
-        this.edificio = edificio;
-        this.edificioBloque = edificioBloque;
-        this.tipoAula = tipoAula;
-        this.codAlterno = codAlterno;
-        this.capacidad = capacidad;
-        this.piso = piso;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaUltActualizacion = fechaUltActualizacion;
     }
 
-    public AulaId getId() {
+    public AulaPK getId() {
         return id;
     }
 
-    public void setId(AulaId id) {
+    public void setId(AulaPK id) {
         this.id = id;
     }
 
@@ -142,34 +115,39 @@ public class Aula implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Date getFechaUltActualizacion() {
+    public LocalDate getFechaUltActualizacion() {
         return fechaUltActualizacion;
     }
 
-    public void setFechaUltActualizacion(Date fechaUltActualizacion) {
+    public void setFechaUltActualizacion(LocalDate fechaUltActualizacion) {
         this.fechaUltActualizacion = fechaUltActualizacion;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Aula)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Aula aula = (Aula) o;
         return Objects.equals(id, aula.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hashCode(id);
     }
 
     @Override
     public String toString() {
         return "Aula{" +
                 "id=" + id +
+                ", edificio=" + edificio +
+                ", edificioBloque=" + edificioBloque +
+                ", tipoAula=" + tipoAula +
                 ", codAlterno='" + codAlterno + '\'' +
                 ", capacidad=" + capacidad +
                 ", piso=" + piso +
+                ", fechaCreacion=" + fechaCreacion +
+                ", fechaUltActualizacion=" + fechaUltActualizacion +
                 '}';
     }
 }
+

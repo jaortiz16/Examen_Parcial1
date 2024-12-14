@@ -1,7 +1,5 @@
 package ec.edu.espe.oficinas.edificio.model;
 
-
-import ec.edu.espe.oficinas.edificio.model.Edificio;
 import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
 import java.io.Serializable;
@@ -15,31 +13,22 @@ public class EdificioBloque implements Serializable {
     @Column(name = "COD_EDIFICIO_BLOQUE", length = 8, nullable = false)
     @NotNull
     private String codEdificioBloque;
-
-    // Relación MANY-TO-ONE con Edificio
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
     private Edificio edificio;
-
     @Column(name = "NOMBRE_BLOQUE", length = 128, nullable = false)
     @NotNull
     private String nombreBloque;
-
     @Column(name = "DESCRIPCION", length = 500, nullable = false)
     @NotNull
     private String descripcion;
 
-    // Constructor vacío
     public EdificioBloque() {
     }
 
-    // Constructor completo
-    public EdificioBloque(String codEdificioBloque, Edificio edificio, String nombreBloque, String descripcion) {
+    public EdificioBloque(String codEdificioBloque) {
         this.codEdificioBloque = codEdificioBloque;
-        this.edificio = edificio;
-        this.nombreBloque = nombreBloque;
-        this.descripcion = descripcion;
     }
 
     public String getCodEdificioBloque() {
@@ -76,23 +65,23 @@ public class EdificioBloque implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof EdificioBloque)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         EdificioBloque that = (EdificioBloque) o;
         return Objects.equals(codEdificioBloque, that.codEdificioBloque);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codEdificioBloque);
+        return Objects.hashCode(codEdificioBloque);
     }
 
     @Override
     public String toString() {
         return "EdificioBloque{" +
                 "codEdificioBloque='" + codEdificioBloque + '\'' +
-                ", edificio=" + (edificio != null ? edificio.getCodEdificio() : null) +
+                ", edificio=" + edificio +
                 ", nombreBloque='" + nombreBloque + '\'' +
+                ", descripcion='" + descripcion + '\'' +
                 '}';
     }
 }

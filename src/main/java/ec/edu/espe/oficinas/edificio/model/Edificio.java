@@ -1,77 +1,53 @@
 package ec.edu.espe.oficinas.edificio.model;
 
-
 import ec.edu.espe.oficinas.sede.model.Sede;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
-import jakarta.persistence.*;
 
 @Entity
 @Table(name = "OFI_EDIFICIO")
 public class Edificio implements Serializable {
+
     @Id
     @Column(name = "COD_EDIFICIO", length = 8, nullable = false)
     @NotNull
     private String codEdificio;
-
-    // Relación MANY-TO-ONE con Sede
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "COD_SEDE", nullable = false, insertable = false, updatable = false)
     private Sede sede;
-
     @Column(name = "NOMBRE", length = 128, nullable = false)
     @NotNull
     private String nombre;
-
     @Column(name = "COD_ALTERNO", length = 16, nullable = false)
     @NotNull
     private String codAlterno;
-
     @Column(name = "DESCRIPCION", length = 500, nullable = false)
     @NotNull
     private String descripcion;
-
     @Column(name = "COMENTARIO", length = 1000, nullable = false)
     @NotNull
     private String comentario;
-
     @Column(name = "DIRECCION", length = 256, nullable = false)
     @NotNull
     private String direccion;
-
     @Column(name = "MANEJA_BLOQUES", nullable = false)
     @NotNull
     private Boolean manejaBloques;
-
     @Column(name = "POSEE_AULAS", nullable = false)
     @NotNull
     private Boolean poseeAulas;
-
     @Column(name = "PISOS", nullable = false)
     @NotNull
     private Integer pisos;
 
-    // Constructor vacío
     public Edificio() {
     }
 
-    // Constructor completo
-    public Edificio(String codEdificio, Sede sede, String nombre, String codAlterno, String descripcion,
-                    String comentario, String direccion, Boolean manejaBloques, Boolean poseeAulas, Integer pisos) {
+    public Edificio(String codEdificio) {
         this.codEdificio = codEdificio;
-        this.sede = sede;
-        this.nombre = nombre;
-        this.codAlterno = codAlterno;
-        this.descripcion = descripcion;
-        this.comentario = comentario;
-        this.direccion = direccion;
-        this.manejaBloques = manejaBloques;
-        this.poseeAulas = poseeAulas;
-        this.pisos = pisos;
     }
 
     public String getCodEdificio() {
@@ -156,23 +132,29 @@ public class Edificio implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Edificio)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Edificio edificio = (Edificio) o;
         return Objects.equals(codEdificio, edificio.codEdificio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codEdificio);
+        return Objects.hashCode(codEdificio);
     }
 
     @Override
     public String toString() {
         return "Edificio{" +
                 "codEdificio='" + codEdificio + '\'' +
-                ", sede=" + (sede != null ? sede.getCodSede() : null) +
+                ", sede=" + sede +
                 ", nombre='" + nombre + '\'' +
+                ", codAlterno='" + codAlterno + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", comentario='" + comentario + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", manejaBloques=" + manejaBloques +
+                ", poseeAulas=" + poseeAulas +
+                ", pisos=" + pisos +
                 '}';
     }
 }

@@ -2,20 +2,24 @@ package ec.edu.espe.oficinas.aula.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "OFI_TIPO_AULA")
 public class TipoAula implements Serializable {
-    @Id
-    @Column(name = "COD_TIPO_AULA")
-    private String codigo;
+
     @NotNull
-    @Column(name = "DESCRIPCION")
+    @Id
+    @Column(name = "COD_TIPO_AULA", length = 10, nullable = false)
+    private String codTipoAula;
+
+    @NotNull
+    @Column(name = "DESCRIPCION", length = 128, nullable = false)
     private String descripcion;
+
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_CREACION", nullable = false)
@@ -23,16 +27,17 @@ public class TipoAula implements Serializable {
 
     public TipoAula() {
     }
-    public TipoAula(String codigo) {
-        this.codigo = codigo;
+
+    public TipoAula(String codTipoAula) {
+        this.codTipoAula = codTipoAula;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getCodTipoAula() {
+        return codTipoAula;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodTipoAula(String codTipoAula) {
+        this.codTipoAula = codTipoAula;
     }
 
     public String getDescripcion() {
@@ -55,18 +60,18 @@ public class TipoAula implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         TipoAula tipoAula = (TipoAula) o;
-        return Objects.equals(codigo, tipoAula.codigo);
+        return Objects.equals(codTipoAula, tipoAula.codTipoAula);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(codigo);
+        return Objects.hashCode(codTipoAula);
     }
 
     @Override
     public String toString() {
         return "TipoAula{" +
-                "codigo='" + codigo + '\'' +
+                "codTipoAula='" + codTipoAula + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaCreacion=" + fechaCreacion +
                 '}';

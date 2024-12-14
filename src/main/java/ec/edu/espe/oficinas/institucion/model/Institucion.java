@@ -15,32 +15,24 @@ import java.util.Objects;
 public class Institucion implements Serializable {
 
     @Id
+    @NotNull
     @Column(name = "COD_INSTITUCION", length = 3, nullable = false)
-    @NotNull
     private Integer codInstitucion;
-
+    @NotNull
     @Column(name = "RUC", length = 13, nullable = false)
-    @NotNull
     private String ruc;
-
+    @NotNull
     @Column(name = "RAZON_SOCIAL", length = 250, nullable = false)
-    @NotNull
     private String razonSocial;
-
-    @Column(name = "NOMBRE_COMERCIAL", length = 250, nullable = false)
     @NotNull
+    @Column(name = "NOMBRE_COMERCIAL", length = 250, nullable = false)
     private String nombreComercial;
 
-    // Constructor vacío
     public Institucion() {
     }
 
-    // Constructor completo
-    public Institucion(Integer codInstitucion, String ruc, String razonSocial, String nombreComercial) {
+    public Institucion(Integer codInstitucion) {
         this.codInstitucion = codInstitucion;
-        this.ruc = ruc;
-        this.razonSocial = razonSocial;
-        this.nombreComercial = nombreComercial;
     }
 
     public Integer getCodInstitucion() {
@@ -77,15 +69,14 @@ public class Institucion implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Institucion)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Institucion that = (Institucion) o;
         return Objects.equals(codInstitucion, that.codInstitucion);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codInstitucion);
+        return Objects.hashCode(codInstitucion);
     }
 
     @Override
