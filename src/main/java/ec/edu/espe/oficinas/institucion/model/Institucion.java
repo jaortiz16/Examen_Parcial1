@@ -1,4 +1,4 @@
-package ec.edu.espe.oficinas.institucion;
+package ec.edu.espe.oficinas.institucion.model;
 
 
 
