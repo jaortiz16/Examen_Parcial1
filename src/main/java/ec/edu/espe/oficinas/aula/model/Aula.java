@@ -6,17 +6,17 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
 @Table(name = "OFI_AULA")
 public class Aula implements Serializable {
+
     @EmbeddedId
-    private AulaPK id;
+    private AulaPK pk;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "COD_EDIFICIO",referencedColumnName = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
     private Edificio edificio;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -38,7 +38,7 @@ public class Aula implements Serializable {
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_CREACION", nullable = false)
-    private Date fechaCreacion;
+    private LocalDate fechaCreacion;
     @Temporal(TemporalType.TIMESTAMP)
     @NotNull
     @Column(name = "FECHA_ULT_ACTUALIZACION", nullable = false)
@@ -47,16 +47,16 @@ public class Aula implements Serializable {
     public Aula() {
     }
 
-    public Aula(AulaPK id) {
-        this.id = id;
+    public Aula(AulaPK pk) {
+        this.pk = pk;
     }
 
     public AulaPK getId() {
-        return id;
+        return pk;
     }
 
-    public void setId(AulaPK id) {
-        this.id = id;
+    public void setId(AulaPK pk) {
+        this.pk = pk;
     }
 
     public Edificio getEdificio() {
@@ -107,11 +107,11 @@ public class Aula implements Serializable {
         this.piso = piso;
     }
 
-    public Date getFechaCreacion() {
+    public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(LocalDate fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -127,18 +127,18 @@ public class Aula implements Serializable {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Aula aula = (Aula) o;
-        return Objects.equals(id, aula.id);
+        return Objects.equals(pk, aula.pk);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(pk);
     }
 
     @Override
     public String toString() {
         return "Aula{" +
-                "id=" + id +
+                "id=" + pk +
                 ", edificio=" + edificio +
                 ", edificioBloque=" + edificioBloque +
                 ", tipoAula=" + tipoAula +
@@ -150,4 +150,5 @@ public class Aula implements Serializable {
                 '}';
     }
 }
+
 

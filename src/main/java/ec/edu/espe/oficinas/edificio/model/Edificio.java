@@ -16,7 +16,7 @@ public class Edificio implements Serializable {
     private String codEdificio;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_SEDE", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "COD_SEDE",referencedColumnName = "COD_SEDE", nullable = false, insertable = false, updatable = false)
     private Sede sede;
     @Column(name = "NOMBRE", length = 128, nullable = false)
     @NotNull

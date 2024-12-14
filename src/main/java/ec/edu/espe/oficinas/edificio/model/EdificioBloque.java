@@ -15,7 +15,7 @@ public class EdificioBloque implements Serializable {
     private String codEdificioBloque;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "COD_EDIFICIO",referencedColumnName = "COD_EDIFICIO", nullable = false, insertable = false, updatable = false)
     private Edificio edificio;
     @Column(name = "NOMBRE_BLOQUE", length = 128, nullable = false)
     @NotNull

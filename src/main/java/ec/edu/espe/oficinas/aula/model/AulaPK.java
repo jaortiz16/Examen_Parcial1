@@ -10,16 +10,13 @@ public class AulaPK implements Serializable {
 
     @NotNull
     @Column(name = "COD_AULA", nullable = false)
-    private Integer codAula;  // SERIAL (int)
-
+    private Integer codAula;
     @NotNull
     @Column(name = "COD_EDIFICIO", length = 8, nullable = false)
     private String codEdificio;
-
     @NotNull
     @Column(name = "COD_EDIFICIO_BLOQUE", length = 8, nullable = false)
     private String codEdificioBloque;
-
     @NotNull
     @Column(name = "COD_TIPO_AULA", length = 10, nullable = false)
     private String codTipoAula;

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,11 +14,9 @@ public class TipoAula implements Serializable {
     @Id
     @Column(name = "COD_TIPO_AULA", length = 10, nullable = false)
     private String codTipoAula;
-
     @NotNull
     @Column(name = "DESCRIPCION", length = 128, nullable = false)
     private String descripcion;
-
     @NotNull
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_CREACION", nullable = false)

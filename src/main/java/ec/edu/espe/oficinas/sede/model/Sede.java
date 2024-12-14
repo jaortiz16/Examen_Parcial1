@@ -1,7 +1,5 @@
 package ec.edu.espe.oficinas.sede.model;
 
-
-
 import ec.edu.espe.oficinas.institucion.model.Institucion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -12,13 +10,14 @@ import java.util.Objects;
 @Entity
 @Table(name = "OFI_SEDE")
 public class Sede implements Serializable {
+
     @Id
     @Column(name = "COD_SEDE", length = 8, nullable = false)
     @NotNull
     private String codSede;
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COD_INSTITUCION", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "COD_INSTITUCION", referencedColumnName = "COD_INSTITUCION", nullable = false, insertable = false, updatable = false)
     private Institucion institucion;
     @Column(name = "NOMBRE", length = 128, nullable = false)
     @NotNull
@@ -32,6 +31,7 @@ public class Sede implements Serializable {
     @Column(name = "PRESUPUESTO", precision = 18, scale = 2, nullable = false)
     @NotNull
     private BigDecimal presupuesto;
+
     public Sede() {
     }
     public Sede(String codSede) {
